@@ -1,0 +1,24 @@
+{
+  "name": "jisx",
+  "version": "1.0.0",
+  "description": "Job Interview Story X",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --end=dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rene Esteves",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/react": "^16.4.11",
+    "@types/react-dom": "^16.0.7",
+    "ts-loader": "^4.5.0",
+    "typescript": "^3.0.1",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0"
+  },
+  "dependencies": {
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2"
+  }
+}
