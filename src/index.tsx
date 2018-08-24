@@ -1,8 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Game } from './modules/game/game';
+import { GameWithExplorableExplanation } from './modules/game/gameWithExplorableExplanation';
 
 ReactDOM.render(
-    <Game></Game>,
-    document.getElementById('stagePlaceholder'),
+    <GameWithExplorableExplanation />,
+    document.getElementById('gamePlaceholder'),
 );
