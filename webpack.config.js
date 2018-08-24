@@ -5,9 +5,13 @@ module.exports = {
     module: {
       rules: [
         {
+          exclude: /node_modules/,
           test: /\.tsx?$/,
-          use: 'ts-loader',
-          exclude: /node_modules/
+          use: 'ts-loader'
+        },
+        {
+          test: /\.html$/,
+          use: 'html-loader',
         }
       ]
     },
