@@ -1,26 +1,31 @@
 import * as React from 'react';
-import * as content1 from './content1.html';
-import * as content2 from './content2.html';
+
+const content1 = require('./content1.html');
+const content2 = require('./content2.html');
+
+export type ContentKey = 'content1' | 'content2';
 
 interface IExplorableExplanationProps {
-    contentId: number;
+  contentId: ContentKey;
 }
 
 const content = {
-    content1,
-    content2,
+  content1,
+  content2,
 }
 
 function getContent(contentId) {
-    return content[`content${ contentId }`];
+  return content[contentId];
 }
 
-export const ExplorableExplanation: React.SFC<IExplorableExplanationProps> =
-    (props: IExplorableExplanationProps): JSX.Element => {
-        return (
-            <div
-                className="explorableExplanation"
-                dangerouslySetInnerHTML={{ __html: getContent(props.contentId) }}
-            ></div>
-        );
-    }
+const ExplorableExplanation: React.SFC<IExplorableExplanationProps> =
+  (props: IExplorableExplanationProps): JSX.Element => {
+    return (
+      <div
+        className="explorableExplanation"
+        dangerouslySetInnerHTML={{ __html: getContent(props.contentId) }}
+      ></div>
+    );
+  }
+
+export { ExplorableExplanation };

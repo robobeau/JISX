@@ -1,54 +1,60 @@
 <html>
-    <head>
-        <title>Job Interview Story X</title>
-        <style>
-            body {
-                font-family: Arial, Helvetica, sans-serif;
-                margin: 32px;
-            }
+  <head>
+    <title>Job Interview Story X</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 32px;
+      }
 
-            #page {
-                display: flex;
-                margin: auto;
-                max-width: 1280px;
-            }
+      #page {
+        display: flex;
+        margin: auto;
+        max-width: 1280px;
+      }
 
-            #stagePlaceholder {
-                align-self: flex-start;
-                position: sticky;
-                top: 0;
-            }
+      #stagePlaceholder {
+        align-self: flex-start;
+        position: sticky;
+        top: 0;
+      }
 
-            .objectsLayer,
-            .tilesLayer {
-                position: absolute;
-            }
+      .objectsLayer,
+      .tilesLayer {
+        position: absolute;
+      }
 
-            .actor,
-            .object {
-                position: absolute;
+      .flavor,
+      .npc,
+      .player,
+      .portal {
+        position: absolute;
 
-                /* Delete this... */
-                background-color: blue;
-                opacity: 0.5;
-            }
+        /* Delete this... */
+        opacity: 0.5;
+      }
 
-            .tile {
-                background-image: url("./tile-map.gif");
-                position: absolute;
-            }
-        </style>
-    </head>
+      .flavor { background-color: red; }
+      .npc { background-color: green; }
+      .player { background-color: blue; }
+      .portal { background-color: purple; }
 
-    <body>
-        <div id="page">
-            <div id="gamePlaceholder"></div>
-            <div id="stagePlaceholder"></div>
-            <div id="contentPlaceholder"></div>
-        </div>
+      .tile {
+        background-image: url("./tile-map.gif");
+        position: absolute;
+      }
+    </style>
+  </head>
 
-        <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
-        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
-        <script src="jisx.js"></script>
-    </body>
+  <body>
+    <div id="page">
+      <div id="gamePlaceholder"></div>
+      <div id="stagePlaceholder"></div>
+      <div id="contentPlaceholder"></div>
+    </div>
+
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+    <script src="jisx.js"></script>
+  </body>
 </html>

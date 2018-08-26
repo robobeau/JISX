@@ -3,6 +3,6 @@ import * as ReactDOM from 'react-dom';
 import { GameWithExplorableExplanation } from './modules/game/gameWithExplorableExplanation';
 
 ReactDOM.render(
-    <GameWithExplorableExplanation />,
-    document.getElementById('gamePlaceholder'),
+  <GameWithExplorableExplanation />,
+  document.getElementById('gamePlaceholder'),
 );
