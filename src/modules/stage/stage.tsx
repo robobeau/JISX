@@ -1,25 +1,41 @@
 import * as React from 'react';
 import { Actor } from '../actor/actor';
 import { IBaseObjectProps } from '../baseObject/baseObject';
+import { ContentId } from '../explorableExplanation/explorableExplanation';
 import { FlavorText } from '../flavorText/flavorText';
 import { Portal } from '../portal/portal';
+import { GameContext } from '../game/game';
 import { Tile } from '../tile/tile';
-import { GameContext } from '../game/game'
+
+export const StageContext = React.createContext<StageContext>(null);
 
 const a000 = require('../stage/json/a000.json');
 const a001 = require('../stage/json/a001.json');
 const a002 = require('../stage/json/a002.json');
-const stages: { [key in StageKey]: StageData } = {
+const stages: { [key in StageId]: StageData } = {
   a000,
   a001,
   a002,
 }
 
+export type CollisionMap = {
+  [key: string]: boolean;
+}
+
+export type PortalMap = {
+  [key: string]: {
+    contentId: ContentId;
+    stageId: StageId;
+  };
+}
+
+export type StageId = 'a000' | 'a001' | 'a002';
+
 type BaseLayer = {
   height: number;
   name: string;
   opacity: number;
-  type: string;
+  type: LayerType;
   width: number;
   visible: boolean;
 }
@@ -34,11 +50,18 @@ type BaseTilesLayer = {
 
 type Layer = ObjectsLayer | TilesLayer;
 
+type LayerType = 'tilelayer' | 'objectgroup';
+
 type ObjectsLayer = BaseObjectLayer & BaseLayer;
 
 type Properties = {
   music: string;
   musicVol: string;
+}
+
+type StageContext = {
+  collisionMap: CollisionMap;
+  portalMap: PortalMap;
 }
 
 type StageData = {
@@ -51,25 +74,33 @@ type StageData = {
   width: number;
 }
 
-export type StageKey = 'a000' | 'a001' | 'a002';
-
 type TilesLayer = BaseTilesLayer & BaseLayer;
 
 type Tileset = {
   columns: number;
 }
 
-interface IStageProps {
-  stageId: Readonly<StageKey>;
+export interface IStageState {
+  // prevStageId: StageId;
 }
 
-interface IStageState {}
+interface IStageProps {
+  stageId: Readonly<StageId>;
+}
 
 export class Stage extends React.Component<IStageProps, IStageState> {
   public props: IStageProps;
   public state: IStageState;
 
-  private stage: StageData;
+  private layers: JSX.Element[];
+
+  private collisionMap: CollisionMap = {};
+  private portalMap: PortalMap = {};
+  private prevStageId: StageId;
+
+  private get stage(): StageData {
+    return stages[this.props.stageId];
+  }
 
   private get stageHeight(): number {
     return this.stage.height;
@@ -95,29 +126,39 @@ export class Stage extends React.Component<IStageProps, IStageState> {
   constructor(props: IStageProps) {
     super(props);
 
-    this.stage = stages[this.props.stageId];
-    this.state = {};
+    this.state = {
+      // prevStageId: props.stageId,
+    };
+
+    this.prevStageId = props.stageId;
+    this.layers = this.generateStage();
   }
 
-  public componentDidUpdate(prevProps) {
-    if (prevProps.data !== this.props.stageId) {
-      this.stage = stages[this.props.stageId];
+  public componentDidUpdate(prevProps: IStageProps, prevState: IStageState): void {
+    if (this.props.stageId !== prevProps.stageId) {
+      this.prevStageId = prevProps.stageId;
+      this.layers = this.generateStage();
     }
   }
 
   public render(): JSX.Element {
+    const collisionMap = this.collisionMap;
+    const portalMap = this.portalMap;
+
     return (
-      <div
-        id="stage"
-        style={
-          {
-            height: `${ this.stageHeight * this.tileHeight }px`,
-            width: `${ this.stageWidth * this.tileWidth }px`,
+      <StageContext.Provider value={{ collisionMap, portalMap }}>
+        <div
+          id="stage"
+          style={
+            {
+              height: `${ this.stageHeight * this.tileHeight }px`,
+              width: `${ this.stageWidth * this.tileWidth }px`,
+            }
           }
-        }
-      >
-        { this.generateStage() }
-      </div>
+        >
+          { this.layers }
+        </div>
+      </StageContext.Provider>
     );
   }
 
@@ -136,7 +177,7 @@ export class Stage extends React.Component<IStageProps, IStageState> {
   }
 
   private generateObject(object: IBaseObjectProps): JSX.Element {
-    const { height, id, name, type, visible, width, x, y } = object;
+    const { height, id, name, properties, type, visible, width, x, y } = object;
 
     switch (type) {
       case 'flavor':
@@ -144,11 +185,24 @@ export class Stage extends React.Component<IStageProps, IStageState> {
       case 'npc':
         return <Actor { ...object } />;
       case 'player':
-        // TODO: Logic for whether or not to render Player, depending on spawn location.
+        if (properties.prevStageId !== this.prevStageId) {
+          return;
+        }
 
         return (
           <GameContext.Consumer>
-            { gameState => <Actor { ...object } gameState={ gameState } /> }
+            { gameState => (
+              // <StageContext.Consumer>
+              //   { stageState => (
+                  <Actor
+                    { ...object }
+                    collisionMap={ this.collisionMap }
+                    gameState={ gameState }
+                    portalMap={ this.portalMap }
+                  />
+              //   )}
+              // </StageContext.Consumer>
+            )}
           </GameContext.Consumer>
         );
       case 'portal':
@@ -175,11 +229,28 @@ export class Stage extends React.Component<IStageProps, IStageState> {
   }
 
   private generateObjectsLayer(layer: ObjectsLayer, layerIndex: number): JSX.Element {
+    let portalMap = {};
+
     const objects = layer.objects.map(
       (object: IBaseObjectProps, objectIndex: number) => {
+        if (object.type === 'portal') {
+          const { x, y, properties } = object;
+          const { contentId, stageId } = properties;
+          const positionKey = `${ (y / 32) - 1 }-${ x / 32 }`;
+
+          portalMap[positionKey] = {
+            contentId,
+            stageId,
+          };
+        }
+
         return this.generateObject(object);
       }
     );
+
+    if (layer.type === 'objectgroup') {
+      this.portalMap = portalMap;
+    }
 
     return (
       <div
@@ -200,29 +271,40 @@ export class Stage extends React.Component<IStageProps, IStageState> {
   }
 
   private generateTilesLayer(layer: TilesLayer, layerIndex: number): JSX.Element {
+    let collisionMap = {};
+
     const tiles = layer.data.map(
       (tile: number, tileIndex: number) => {
+        // I need to adjust "tileId" by 1, because 0 stands for empty.
+        const adjustedTileId = tile - 1;
         const row = Math.floor(tileIndex / layer.width);
         const column = tileIndex - (row * layer.width);
 
-        // 0 stands for empty, so don't render empty tiles.
-        if (tile === 0) {
+        // -1 (or 0 before adjusting) stands for empty, so don't render empty tiles.
+        if (adjustedTileId === -1) {
           return;
         }
-        
+
+        if (adjustedTileId === 1) {
+          collisionMap[`${ row }-${ column }`] = true;
+        }
+
         return (
           <Tile
             column={ column }
             row={ row }
             tileHeight={ this.tileHeight }
-            // I need to adjust "tileId" by 1, because 0 stands for empty.
-            tileId={ tile - 1 }
+            tileId={ adjustedTileId }
             tileWidth={ this.tileWidth }
             tileset={ this.tileset }
           />
         );
       }
     );
+
+    if (layer.name === 'collisions') {
+      this.collisionMap = collisionMap;
+    }
 
     return (
       <div

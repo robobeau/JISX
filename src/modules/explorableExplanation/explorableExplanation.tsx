@@ -1,17 +1,17 @@
 import * as React from 'react';
 
-const content1 = require('./content1.html');
-const content2 = require('./content2.html');
+const c000 = require('./c000.html');
+const c001 = require('./c001.html');
 
-export type ContentKey = 'content1' | 'content2';
+export type ContentId = 'c000' | 'c001';
 
 interface IExplorableExplanationProps {
-  contentId: ContentKey;
+  contentId: ContentId;
 }
 
 const content = {
-  content1,
-  content2,
+  c000,
+  c001,
 }
 
 function getContent(contentId) {

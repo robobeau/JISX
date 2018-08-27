@@ -2,6 +2,7 @@ import * as React from 'react';
 import update from 'immutability-helper';
 import { BaseObjectComponent, IBaseObjectProps } from '../baseObject/baseObject';
 import { IGameState, Key } from '../game/game';
+import { CollisionMap, IStageState, PortalMap, StageId } from '../stage/stage';
 
 enum ActorState {
   Idle = 'Idle',
@@ -15,7 +16,9 @@ type Position = {
 }
 
 interface IActorProps extends IBaseObjectProps {
-  gameState?: IGameState
+  collisionMap?: CollisionMap;
+  portalMap?: PortalMap;
+  gameState?: IGameState;
 }
 
 interface IActorState {
@@ -27,56 +30,82 @@ export class Actor extends React.Component<IActorProps, IActorState> {
   public props: IActorProps;
   public state: IActorState;
 
+  private actorStateTimeout: number;
+
   constructor(props: IActorProps) {
     super(props);
 
+    const { x, y } = props;
+
     this.state = {
       actorState: ActorState.Idle,
-      position: {
-        x: props.x,
-        y: props.y,
-      }
+      position: { x, y },
     };
   }
 
   public componentDidUpdate(prevProps: IActorProps, prevState: IActorState): void {
-    // let { x, y } = this.props;
+    if (this.state.actorState === ActorState.Moving && !this.actorStateTimeout) {
+      this.actorStateTimeout = window.setTimeout(
+        () => {
+          const newState = { actorState: ActorState.Idle };
 
-    // if (this.props.gameState) {
-    //   if (this.props.gameState.keycodes[Key.Down]) {
-    //     y += 32;
-    //   }
-  
-    //   if (this.props.gameState.keycodes[Key.Left]) {
-    //     x -= 32;
-    //   }
-  
-    //   if (this.props.gameState.keycodes[Key.Right]) {
-    //     x += 32;
-    //   }
-  
-    //   if (this.props.gameState.keycodes[Key.Up]) {
-    //     y -= 32;
-    //   }
+          this.actorStateTimeout = null;
+
+          this.setState(() => newState);
+        },
+        200
+      );
+    }
+  }
+
+  public static getDerivedStateFromProps(props: IActorProps, state: IActorState): IActorState {
+    console.log('derived', state.actorState);
+    const { collisionMap, gameState, portalMap } = props;
+    let { x, y } = state.position;
+    let newState = { ...state };
+
+    // TODO: Set the player's direction.
+    if (gameState.keycodes[Key.Down]) {
+      y += 32;
+    }
+
+    if (gameState.keycodes[Key.Left]) {
+      x -= 32;
+    }
+
+    if (gameState.keycodes[Key.Right]) {
+      x += 32;
+    }
+
+    if (gameState.keycodes[Key.Up]) {
+      y -= 32;
+    }
+
+    // if (gameState.keycodes[Key.Enter]) {
     // }
 
-    // if (prevProps.x !== x) {
-    //   const xState = {
-    //     position: update(this.state.position, { x: { $set: x } })
-    //   };
+    const positionWillChange = x !== state.position.x || y !== state.position.y;
 
-    //   this.setState(() => xState);
-    // }
+    if (positionWillChange) {
+      // TODO: This "- 1" can't be right...
+      const positionKey = `${ (y / 32) - 1 }-${ x / 32 }`;
 
-    // if (prevProps.y !== y) {
-    //   const yState = {
-    //     position: update(this.state.position, { y: { $set: y } })
-    //   };
+      if (newState.actorState !== ActorState.Moving && !collisionMap[positionKey]) {
+        newState = {
+          actorState: ActorState.Moving,
+          position: { x, y },
+        }
+      }
 
-    //   this.setState(() => yState);
-    // }
+      if (portalMap[positionKey]) {
+        const { contentId, stageId } = portalMap[positionKey];
+        const detail = { contentId, stageId };
 
-    console.log(this.props);
+        document.dispatchEvent(new CustomEvent('loadStage', { detail }));
+      }
+
+      return newState;
+    }
   }
 
   public render(): JSX.Element {

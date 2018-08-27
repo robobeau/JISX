@@ -1,13 +1,13 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { ContentKey, ExplorableExplanation } from '../explorableExplanation/explorableExplanation';
-import { Game, IGameProps, IGameState } from '../game/game';
-import { Stage, StageKey } from '../stage/stage';
+import { ContentId, ExplorableExplanation } from '../explorableExplanation/explorableExplanation';
+import { Game, GameContext, IGameProps, IGameState } from '../game/game';
+import { Stage, StageId } from '../stage/stage';
 
 interface IGameWithExplorableExplanationProps extends IGameProps {}
 
 interface IGameWithExplorableExplanationState extends IGameState {
-  contentId: ContentKey;
+  contentId: ContentId;
 }
 
 export class GameWithExplorableExplanation extends Game<IGameWithExplorableExplanationProps, IGameWithExplorableExplanationState> {
@@ -17,20 +17,22 @@ export class GameWithExplorableExplanation extends Game<IGameWithExplorableExpla
 
   public render(): JSX.Element {
     return (
-      <div className="gameWithExplorableExplanation">
-        {
-          ReactDOM.createPortal(
-            <Stage stageId={ this.state.area } />,
-            document.getElementById('stagePlaceholder')
-          )
-        }
-        {
-          ReactDOM.createPortal(
-            <ExplorableExplanation contentId={ this.state.contentId } />,
-            document.getElementById('contentPlaceholder')
-          )
-        }
-      </div>
+      <GameContext.Provider value={ this.state }>
+        <div className="gameWithExplorableExplanation">
+          {
+            ReactDOM.createPortal(
+              <Stage stageId={ this.state.stageId } />,
+              document.getElementById('stagePlaceholder')
+            )
+          }
+          {
+            ReactDOM.createPortal(
+              <ExplorableExplanation contentId={ this.state.contentId } />,
+              document.getElementById('contentPlaceholder')
+            )
+          }
+        </div>
+      </GameContext.Provider>
     );
   }
 
@@ -38,8 +40,8 @@ export class GameWithExplorableExplanation extends Game<IGameWithExplorableExpla
     super.initGame();
 
     this.state = {
-      area: 'a000',
-      contentId: 'content1',
+      stageId: 'a000',
+      contentId: 'c000',
       keycodes: {},
     }
   }

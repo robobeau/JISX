@@ -1,6 +1,7 @@
 import * as React from 'react';
 import update from 'immutability-helper';
-import { Stage, StageKey } from '../stage/stage';
+import { Stage, StageId } from '../stage/stage';
+import { ContentId } from '../explorableExplanation/explorableExplanation';
 
 export enum Key {
   Down = 40,
@@ -16,8 +17,9 @@ export const GameContext = React.createContext<IGameState>(null);
 export interface IGameProps {}
 
 export interface IGameState {
+  contentId: ContentId;
   keycodes: Keycodes;
-  area: StageKey;
+  stageId: StageId;
 }
 
 export class Game<P extends IGameProps, S extends IGameState> extends React.Component<P, S> {
@@ -30,13 +32,15 @@ export class Game<P extends IGameProps, S extends IGameState> extends React.Comp
 
     this.keydown = this.keydown.bind(this);
     this.keyup = this.keyup.bind(this);
+    this.loadStage = this.loadStage.bind(this);
 
     /**
      * TODO: Fix this typing.
      * https://github.com/DefinitelyTyped/DefinitelyTyped/issues/14250#issuecomment-275253262
      */
     (this.state as S as Readonly<IGameState>) = {
-      area: 'a000',
+      contentId: 'c000',
+      stageId: 'a000',
       keycodes: {},
     };
 
@@ -46,21 +50,19 @@ export class Game<P extends IGameProps, S extends IGameState> extends React.Comp
   public componentDidMount(): void {
     document.addEventListener('keydown', this.keydown);
     document.addEventListener('keyup', this.keyup);
-  }
-
-  public componentDidUpdate(): void {
-    console.log('update!', this.state);
+    document.addEventListener('loadStage', this.loadStage);
   }
 
   public componentWillUnmount(): void {
     document.removeEventListener('keydown', this.keydown);
     document.removeEventListener('keyup', this.keyup);
+    document.removeEventListener('loadStage', this.loadStage);
   }
 
   public render(): JSX.Element {
     return (
       <GameContext.Provider value={ this.state }>
-        <Stage stageId={ this.state.area }></Stage>
+        <Stage stageId={ this.state.stageId }></Stage>
       </GameContext.Provider>
     );
   }
@@ -76,25 +78,37 @@ export class Game<P extends IGameProps, S extends IGameState> extends React.Comp
 
     this.gameLoopInterval = setInterval(
       () => {
-        // console.log(this.state.keycodes);
+        // Do stuff...?
       },
       1000 / 60
     );
   }
 
+  // TODO: Debounce this...?
   private keydown(event: KeyboardEvent): void {
-    const state = {
+    const newState = {
       keycodes: update(this.state.keycodes, { [event.keyCode]: { $set: true } })
     };
-    
-    this.setState(() => state);
+
+    this.setState(() => newState);
   }
 
+  // TODO: Debounce this...?
   private keyup(event: KeyboardEvent): void {
-    const state = {
+    const newState = {
       keycodes: update(this.state.keycodes, { [event.keyCode]: { $set: false } })
     };
-    
-    this.setState(() => state);
+
+    this.setState(() => newState);
+  }
+
+  private loadStage(event: CustomEvent): void {
+    const { contentId, stageId } = event.detail;
+    const newState = {
+      contentId,
+      stageId,
+    };
+
+    this.setState(() => newState);
   }
 }

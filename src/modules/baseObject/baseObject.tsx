@@ -1,6 +1,14 @@
 import * as React from 'react';
+import { ContentId } from '../explorableExplanation/explorableExplanation';
+import { StageId } from '../stage/stage';
 
 export type ObjectType = 'flavor' | 'npc' | 'player' | 'portal';
+
+type ObjectProperties = {
+  contentId: ContentId;
+  prevStageId: StageId;
+  stageId: StageId;
+}
 
 export interface IBaseObjectProps {
   children?: any;
@@ -9,8 +17,7 @@ export interface IBaseObjectProps {
   id: number;
   height: number;
   name: string;
-  // TODO: Type this.
-  properties: any;
+  properties: ObjectProperties;
   type: ObjectType;
   width: number;
   visible: boolean;
@@ -18,8 +25,8 @@ export interface IBaseObjectProps {
   y: number;
 }
 
-const BaseObjectComponent: React.SFC<IBaseObjectProps> = 
-  ({ children, height, id, type, visible, width, x, y }: IBaseObjectProps): JSX.Element => {    
+const BaseObjectComponent: React.SFC<IBaseObjectProps> =
+  ({ children, height, id, type, visible, width, x, y }: IBaseObjectProps): JSX.Element => {
     return (
       <div
         className={ `${ type } ${ type }--${ id }` }

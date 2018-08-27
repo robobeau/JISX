@@ -4,7 +4,7 @@
     <style>
       body {
         font-family: Arial, Helvetica, sans-serif;
-        margin: 32px;
+        margin: 0px;
       }
 
       #page {
@@ -34,10 +34,16 @@
         opacity: 0.5;
       }
 
-      .flavor { background-color: red; }
-      .npc { background-color: green; }
+      .flavor { background-color: moccasin; }
+      .npc { background-color: aqua; }
       .player { background-color: blue; }
-      .portal { background-color: purple; }
+      .portal { background-color: green; }
+
+      .player {
+        transition-duration: 200ms;
+        transition-property: left, top;
+        transition-timing-function: linear;
+      }
 
       .tile {
         background-image: url("./tile-map.gif");

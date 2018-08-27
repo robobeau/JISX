@@ -24,7 +24,7 @@
          "y":0
         }, 
         {
-         "data":[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+         "data":[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 2, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
          "height":10,
          "name":"collisions",
          "opacity":0.5,
@@ -45,16 +45,18 @@
                  "name":"s000",
                  "properties":
                     {
-                     "area":"a001",
-                     "direction":"ur"
+                     "contentId":"c001",
+                     "direction":"ur",
+                     "stageId":"a001"
                     },
                  "propertytypes":
                     {
-                     "area":"string",
-                     "direction":"string"
+                     "contentId":"string",
+                     "direction":"string",
+                     "stageId":"string"
                     },
                  "rotation":0,
-                 "type":"stairs",
+                 "type":"portal",
                  "visible":true,
                  "width":32,
                  "x":352,
@@ -67,11 +69,11 @@
                  "name":"player",
                  "properties":
                     {
-                     "prevArea":"a001"
+                     "prevStageId":"a001"
                     },
                  "propertytypes":
                     {
-                     "prevArea":"string"
+                     "prevStageId":"string"
                     },
                  "rotation":0,
                  "type":"player",
@@ -87,11 +89,11 @@
                  "name":"player",
                  "properties":
                     {
-                     "prevArea":"a000"
+                     "prevStageId":"a000"
                     },
                  "propertytypes":
                     {
-                     "prevArea":"string"
+                     "prevStageId":"string"
                     },
                  "rotation":0,
                  "type":"player",
@@ -379,28 +381,6 @@
                  "width":32,
                  "x":352,
                  "y":256
-                }, 
-                {
-                 "gid":4,
-                 "height":32,
-                 "id":31,
-                 "name":"s000",
-                 "properties":
-                    {
-                     "area":"a001",
-                     "direction":"ur"
-                    },
-                 "propertytypes":
-                    {
-                     "area":"string",
-                     "direction":"string"
-                    },
-                 "rotation":0,
-                 "type":"stairs",
-                 "visible":true,
-                 "width":32,
-                 "x":352,
-                 "y":96
                 }],
          "opacity":1,
          "type":"objectgroup",
