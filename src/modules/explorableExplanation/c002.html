@@ -1,0 +1,35 @@
+<div id="c002">
+  <h1>!!RED ALERT!!</h1>
+
+  <small>Batten down the hatches! Everybody panic!</small>
+
+  <p>
+    This room looks... oppressive. But this is the reality of the world the little dude lives in.
+    The <span class="red">red</span> tiles surround him.
+    The <span class="red">red</span> tiles envelop him.
+    The <span class="red">red</span> tiles are slowly closing in, with every waking breath.
+  </p>
+
+  <p>The <span class="red">red</span> tiles also indicate where he can and cannot go.</p>
+
+  <p>
+    There's also some <span class="green">green</span> tiles.
+    These act as a portal to another stage.
+  </p>
+
+  <p>Both of these types of tiles work in exactly the same way:</p>
+
+  <ol>
+    <li>The little dude attempts to move onto a tile on the stage.</li>
+    <li>The game calculates his future position and checks if there are any special tiles in that position.</li>
+    <li>If there's a <span class="red">red</span> tile, we stop his movement.</li>
+    <li>If there's a <span class="green">green</span> tile, we "activate the portal" and load the next stage.</li>
+  </ol>
+
+  <p>
+    This is a very basic implementation of collision detection.
+    If we wanna get fancy, we could <i>(and eventually will)</i> introduce collision based on
+    the direction the little dude is facing.
+    This is how we'll implement interacting with the environment in the next area.
+  </p>
+</div>

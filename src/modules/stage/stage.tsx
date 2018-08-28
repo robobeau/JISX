@@ -12,10 +12,14 @@ export const StageContext = React.createContext<StageContext>(null);
 const a000 = require('../stage/json/a000.json');
 const a001 = require('../stage/json/a001.json');
 const a002 = require('../stage/json/a002.json');
+const a003 = require('../stage/json/a003.json');
+const a004 = require('../stage/json/a004.json');
 const stages: { [key in StageId]: StageData } = {
   a000,
   a001,
   a002,
+  a003,
+  a004,
 }
 
 export type CollisionMap = {
@@ -29,7 +33,7 @@ export type PortalMap = {
   };
 }
 
-export type StageId = 'a000' | 'a001' | 'a002';
+export type StageId = 'a000' | 'a001' | 'a002' | 'a003' | 'a004';
 
 type BaseLayer = {
   height: number;

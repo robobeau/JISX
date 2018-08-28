@@ -1,35 +1,13 @@
-{ "height":10,
+{ "height":12,
  "infinite":false,
  "layers":[
         {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 630, 630, 630, 630, 630, 630, 630, 630, 630, 630, 630, 630, 0, 0, 680, 680, 680, 680, 680, 680, 680, 680, 680, 680, 680, 680, 0, 0, 731, 732, 732, 732, 732, 732, 732, 732, 732, 732, 730, 730, 0, 0, 781, 333, 334, 334, 334, 334, 335, 782, 782, 782, 730, 730, 0, 0, 781, 383, 384, 384, 384, 384, 385, 782, 782, 782, 730, 730, 0, 0, 781, 383, 384, 384, 384, 384, 385, 782, 782, 782, 782, 782, 0, 0, 781, 433, 434, 434, 434, 434, 435, 782, 782, 782, 782, 782, 0, 0, 781, 782, 782, 782, 782, 782, 782, 782, 782, 782, 782, 782, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         "height":10,
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 314, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":12,
          "name":"tiles1",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
-         "width":14,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 137, 292, 293, 140, 141, 436, 437, 0, 0, 0, 0, 0, 0, 0, 187, 342, 343, 190, 191, 486, 487, 0, 0, 46, 47, 0, 0, 0, 0, 392, 393, 240, 241, 0, 0, 0, 833, 96, 97, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 883, 344, 344, 0, 0, 0, 0, 590, 897, 898, 594, 0, 0, 0, 0, 394, 394, 0, 0, 0, 0, 593, 947, 948, 344, 0, 0, 0, 1146, 1147, 1148, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1196, 1197, 1198, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         "height":10,
-         "name":"tiles2",
-         "opacity":1,
-         "type":"tilelayer",
-         "visible":true,
-         "width":14,
-         "x":0,
-         "y":0
-        }, 
-        {
-         "data":[2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 2, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-         "height":10,
-         "name":"collisions",
-         "opacity":0.5,
-         "type":"tilelayer",
-         "visible":false,
          "width":14,
          "x":0,
          "y":0
@@ -42,7 +20,7 @@
                  "gid":4,
                  "height":32,
                  "id":1,
-                 "name":"s000",
+                 "name":"p000",
                  "properties":
                     {
                      "contentId":"c001",
@@ -57,10 +35,10 @@
                     },
                  "rotation":0,
                  "type":"portal",
-                 "visible":true,
+                 "visible":false,
                  "width":32,
-                 "x":352,
-                 "y":128
+                 "x":192,
+                 "y":160
                 }, 
                 {
                  "gid":3,
@@ -79,8 +57,8 @@
                  "type":"player",
                  "visible":true,
                  "width":32,
-                 "x":320,
-                 "y":128
+                 "x":192,
+                 "y":192
                 }, 
                 {
                  "gid":3,
@@ -99,292 +77,12 @@
                  "type":"player",
                  "visible":true,
                  "width":32,
-                 "x":128,
-                 "y":160
-                }, 
-                {
-                 "gid":6,
-                 "height":32,
-                 "id":4,
-                 "name":"f000",
-                 "properties":
-                    {
-                     "dialogue":"f000"
-                    },
-                 "propertytypes":
-                    {
-                     "dialogue":"string"
-                    },
-                 "rotation":0,
-                 "type":"flavor",
-                 "visible":true,
-                 "width":32,
-                 "x":64,
-                 "y":64
-                }, 
-                {
-                 "gid":6,
-                 "height":32,
-                 "id":8,
-                 "name":"f001",
-                 "properties":
-                    {
-                     "dialogue":"f001"
-                    },
-                 "propertytypes":
-                    {
-                     "dialogue":"string"
-                    },
-                 "rotation":0,
-                 "type":"flavor",
-                 "visible":true,
-                 "width":32,
-                 "x":96,
-                 "y":96
-                }, 
-                {
-                 "gid":6,
-                 "height":32,
-                 "id":10,
-                 "name":"f002",
-                 "properties":
-                    {
-                     "dialogue":"f002"
-                    },
-                 "propertytypes":
-                    {
-                     "dialogue":"string"
-                    },
-                 "rotation":0,
-                 "type":"flavor",
-                 "visible":true,
-                 "width":32,
-                 "x":128,
-                 "y":96
-                }, 
-                {
-                 "gid":6,
-                 "height":32,
-                 "id":11,
-                 "name":"f003",
-                 "properties":
-                    {
-                     "dialogue":"f003"
-                    },
-                 "propertytypes":
-                    {
-                     "dialogue":"string"
-                    },
-                 "rotation":0,
-                 "type":"flavor",
-                 "visible":true,
-                 "width":32,
-                 "x":160,
-                 "y":96
-                }, 
-                {
-                 "gid":6,
-                 "height":32,
-                 "id":13,
-                 "name":"f004",
-                 "properties":
-                    {
-                     "dialogue":"f004"
-                    },
-                 "propertytypes":
-                    {
-                     "dialogue":"string"
-                    },
-                 "rotation":0,
-                 "type":"flavor",
-                 "visible":true,
-                 "width":32,
-                 "x":224,
-                 "y":64
-                }, 
-                {
-                 "gid":6,
-                 "height":32,
-                 "id":19,
-                 "name":"f005",
-                 "properties":
-                    {
-                     "dialogue":"f005"
-                    },
-                 "propertytypes":
-                    {
-                     "dialogue":"string"
-                    },
-                 "rotation":0,
-                 "type":"flavor",
-                 "visible":true,
-                 "width":32,
-                 "x":352,
-                 "y":160
-                }, 
-                {
-                 "gid":6,
-                 "height":32,
-                 "id":20,
-                 "name":"f006",
-                 "properties":
-                    {
-                     "dialogue":"f006"
-                    },
-                 "propertytypes":
-                    {
-                     "dialogue":"string"
-                    },
-                 "rotation":0,
-                 "type":"flavor",
-                 "visible":true,
-                 "width":32,
                  "x":192,
-                 "y":192
-                }, 
-                {
-                 "gid":6,
-                 "height":32,
-                 "id":21,
-                 "name":"f007",
-                 "properties":
-                    {
-                     "dialogue":"f007"
-                    },
-                 "propertytypes":
-                    {
-                     "dialogue":"string"
-                    },
-                 "rotation":0,
-                 "type":"flavor",
-                 "visible":true,
-                 "width":32,
-                 "x":96,
-                 "y":224
-                }, 
-                {
-                 "gid":6,
-                 "height":32,
-                 "id":22,
-                 "name":"f003",
-                 "properties":
-                    {
-                     "dialogue":"f003"
-                    },
-                 "propertytypes":
-                    {
-                     "dialogue":"string"
-                    },
-                 "rotation":0,
-                 "type":"flavor",
-                 "visible":true,
-                 "width":32,
-                 "x":192,
-                 "y":96
-                }, 
-                {
-                 "gid":6,
-                 "height":32,
-                 "id":23,
-                 "name":"f004",
-                 "properties":
-                    {
-                     "dialogue":"f004"
-                    },
-                 "propertytypes":
-                    {
-                     "dialogue":"string"
-                    },
-                 "rotation":0,
-                 "type":"flavor",
-                 "visible":true,
-                 "width":32,
-                 "x":256,
-                 "y":64
-                }, 
-                {
-                 "gid":6,
-                 "height":32,
-                 "id":27,
-                 "name":"f005",
-                 "properties":
-                    {
-                     "dialogue":"f005"
-                    },
-                 "propertytypes":
-                    {
-                     "dialogue":"string"
-                    },
-                 "rotation":0,
-                 "type":"flavor",
-                 "visible":true,
-                 "width":32,
-                 "x":384,
-                 "y":160
-                }, 
-                {
-                 "gid":6,
-                 "height":32,
-                 "id":28,
-                 "name":"f005",
-                 "properties":
-                    {
-                     "dialogue":"f005"
-                    },
-                 "propertytypes":
-                    {
-                     "dialogue":"string"
-                    },
-                 "rotation":0,
-                 "type":"flavor",
-                 "visible":true,
-                 "width":32,
-                 "x":192,
-                 "y":224
-                }, 
-                {
-                 "gid":6,
-                 "height":32,
-                 "id":29,
-                 "name":"f008",
-                 "properties":
-                    {
-                     "dialogue":"f008"
-                    },
-                 "propertytypes":
-                    {
-                     "dialogue":"string"
-                    },
-                 "rotation":0,
-                 "type":"flavor",
-                 "visible":true,
-                 "width":32,
-                 "x":352,
-                 "y":224
-                }, 
-                {
-                 "gid":6,
-                 "height":32,
-                 "id":30,
-                 "name":"f008",
-                 "properties":
-                    {
-                     "dialogue":"f008"
-                    },
-                 "propertytypes":
-                    {
-                     "dialogue":"string"
-                    },
-                 "rotation":0,
-                 "type":"flavor",
-                 "visible":true,
-                 "width":32,
-                 "x":352,
-                 "y":256
+                 "y":384
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }],

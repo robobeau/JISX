@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="left-up" width="14" height="12" tilewidth="32" tileheight="32" infinite="0" nextobjectid="32">
+ <properties>
+  <property name="music" value="shadesOfRed"/>
+  <property name="musicVol" value="0.25"/>
+ </properties>
+ <tileset firstgid="1" name="Tile Map" tilewidth="32" tileheight="32" tilecount="2500" columns="50">
+  <image source="../../../../../JIS/pub/img/tile-map.gif" width="1600" height="1600"/>
+ </tileset>
+ <layer name="tiles1" width="14" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,314,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup name="objects">
+  <object id="1" name="p000" type="portal" gid="4" x="192" y="160" width="32" height="32" visible="0">
+   <properties>
+    <property name="contentId" value="c001"/>
+    <property name="direction" value="ur"/>
+    <property name="stageId" value="a001"/>
+   </properties>
+  </object>
+  <object id="2" name="player" type="player" gid="3" x="192" y="192" width="32" height="32">
+   <properties>
+    <property name="prevStageId" value="a001"/>
+   </properties>
+  </object>
+  <object id="3" name="player" type="player" gid="3" x="192" y="384" width="32" height="32">
+   <properties>
+    <property name="prevStageId" value="a000"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { ContentId, ExplorableExplanation } from '../explorableExplanation/explorableExplanation';
 import { Game, GameContext, IGameProps, IGameState } from '../game/game';
-import { Stage, StageId } from '../stage/stage';
+import { Stage } from '../stage/stage';
 
 interface IGameWithExplorableExplanationProps extends IGameProps {}
 

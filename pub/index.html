@@ -1,22 +1,49 @@
 <html>
   <head>
     <title>Job Interview Story X</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <style>
       body {
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: 'Roboto', Helvetica, Arial, sans-serif;
+        font-size: 20px;
         margin: 0px;
+      }
+
+      a {
+        color: royalblue;
+      }
+
+      h1, h2 {
+        margin-bottom: 0px;
+      }
+
+      p {
+        line-height: 28px;
+      }
+
+      small {
+        font-style: italic;
+      }
+
+      ul li,
+      ol li {
+        margin-bottom: 10px;
       }
 
       #page {
         display: flex;
         margin: auto;
-        max-width: 1280px;
+        max-width: 1024px;
       }
 
       #stagePlaceholder {
         align-self: flex-start;
         position: sticky;
-        top: 0;
+        top: 0px;
+      }
+
+      #contentPlaceholder {
+        margin: 20px 0px 0px 20px;
       }
 
       .objectsLayer,
@@ -29,25 +56,55 @@
       .player,
       .portal {
         position: absolute;
-
-        /* Delete this... */
-        opacity: 0.5;
       }
 
-      .flavor { background-color: moccasin; }
-      .npc { background-color: aqua; }
-      .player { background-color: blue; }
-      .portal { background-color: green; }
-
       .player {
-        transition-duration: 200ms;
+        background-image: url("./dude-down.gif");
+        margin-top: -8px;
+        padding-top: 8px;
+        transition-duration: 150ms;
         transition-property: left, top;
         transition-timing-function: linear;
+      }
+
+      .player.player--moving {
+        background-image: url("./dude-down-walking.gif");
+      }
+
+      .portal {
+        background-color: greenyellow;
+        opacity: 0.5;
       }
 
       .tile {
         background-image: url("./tile-map.gif");
         position: absolute;
+      }
+
+      .tilesLayer--collisions .tile {
+        border: 1px solid #FFF;
+        box-sizing: border-box;
+      }
+
+      .key {
+        border: 1px solid gray;
+        border-radius: 5px;
+        display: inline-block;
+        padding: 5px;
+        text-align: center;
+        width: 20px;
+      }
+
+      .red {
+        color: red;
+      }
+
+      .green {
+        color: green;
+      }
+
+      .blue {
+        color: royalblue;
       }
     </style>
   </head>

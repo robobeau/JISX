@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" tiledversion="1.1.5" orientation="orthogonal" renderorder="left-up" width="14" height="12" tilewidth="32" tileheight="32" infinite="0" nextobjectid="22">
+ <properties>
+  <property name="music" value="shadesOfRed"/>
+  <property name="musicVol" value="0.25"/>
+ </properties>
+ <tileset firstgid="1" name="Tile Map" tilewidth="32" tileheight="32" tilecount="2500" columns="50">
+  <image source="../../../../../JIS/pub/img/tile-map.gif" width="1600" height="1600"/>
+ </tileset>
+ <layer name="tiles1" width="14" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,630,630,630,630,630,630,630,630,630,630,630,630,0,
+0,680,680,680,680,680,680,680,680,680,680,680,680,0,
+0,731,732,732,732,732,732,732,732,730,730,731,732,0,
+0,781,782,782,782,782,782,782,782,730,730,781,782,0,
+0,781,782,782,782,782,782,782,782,732,732,782,782,0,
+0,781,782,782,782,782,782,782,782,782,782,782,782,0,
+0,781,782,782,782,782,782,782,782,782,782,782,782,0,
+0,781,782,782,782,782,782,782,782,782,782,782,782,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer name="tiles2" width="14" height="12">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,440,142,143,144,0,0,441,0,36,37,138,0,
+0,0,490,192,193,194,41,42,491,48,86,87,188,0,
+0,0,540,242,243,244,91,92,541,98,99,833,0,0,
+0,993,799,800,994,0,0,0,0,148,149,883,0,0,
+0,1093,849,850,1094,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,640,897,898,641,0,0,
+0,0,0,0,0,0,0,0,640,947,948,641,0,0,
+0,0,733,734,735,0,0,0,0,0,0,0,0,0,
+0,0,783,784,785,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer name="collisions" width="14" height="12" opacity="0.5">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+2,0,2,2,2,2,2,2,2,2,2,0,0,2,
+2,0,0,0,0,0,0,0,0,2,0,0,0,2,
+2,2,2,2,2,0,0,0,0,2,2,0,0,2,
+2,2,2,2,2,0,0,0,0,0,0,0,0,2,
+2,0,0,0,0,0,0,0,0,2,2,0,0,2,
+2,0,0,0,0,0,0,0,0,2,2,0,0,2,
+2,0,0,0,0,0,0,0,0,0,0,0,0,2,
+2,2,2,0,2,2,2,2,2,2,2,2,2,2,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup name="objects">
+  <object id="1" name="p100" type="portal" gid="4" x="320" y="160" width="32" height="32">
+   <properties>
+    <property name="contentId" value="c001"/>
+    <property name="stageId" value="a001"/>
+   </properties>
+  </object>
+  <object id="2" name="player" type="player" gid="3" x="352" y="160" width="32" height="32">
+   <properties>
+    <property name="prevStageId" value="a001"/>
+   </properties>
+  </object>
+  <object id="3" name="p101" type="portal" gid="4" x="96" y="352" width="32" height="32">
+   <properties>
+    <property name="contentId" value="c003"/>
+    <property name="stageId" value="a003"/>
+   </properties>
+  </object>
+  <object id="4" name="player" type="player" gid="3" x="96" y="320" width="32" height="32">
+   <properties>
+    <property name="prevStageId" value="a003"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

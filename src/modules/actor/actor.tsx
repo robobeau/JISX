@@ -1,8 +1,7 @@
 import * as React from 'react';
-import update from 'immutability-helper';
 import { BaseObjectComponent, IBaseObjectProps } from '../baseObject/baseObject';
 import { IGameState, Key } from '../game/game';
-import { CollisionMap, IStageState, PortalMap, StageId } from '../stage/stage';
+import { CollisionMap, PortalMap } from '../stage/stage';
 
 enum ActorState {
   Idle = 'Idle',
@@ -53,13 +52,12 @@ export class Actor extends React.Component<IActorProps, IActorState> {
 
           this.setState(() => newState);
         },
-        200
+        150
       );
     }
   }
 
   public static getDerivedStateFromProps(props: IActorProps, state: IActorState): IActorState {
-    console.log('derived', state.actorState);
     const { collisionMap, gameState, portalMap } = props;
     let { x, y } = state.position;
     let newState = { ...state };
@@ -123,7 +121,6 @@ export class Actor extends React.Component<IActorProps, IActorState> {
         width = { width }
         visible = { visible }
       >
-        { name }
       </BaseObjectComponent>
     );
   }
