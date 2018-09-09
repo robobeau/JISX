@@ -2,16 +2,26 @@ import * as React from 'react';
 import { ContentId } from '../explorableExplanation/explorableExplanation';
 import { StageId } from '../stage/stage';
 
-export type ObjectType = 'flavor' | 'npc' | 'player' | 'portal';
-
-type ObjectProperties = {
-  contentId: ContentId;
-  prevStageId: StageId;
-  stageId: StageId;
+export enum ObjectType {
+  Flavor = 'flavor',
+  NPC = 'npc',
+  Player = 'player',
+  Portal = 'portal',
+};
+export interface IBaseObjectProps extends Partial<BaseObject> {
+  children?: any;
+  column: number;
+  id: number;
+  height: number;
+  name: string;
+  properties: ObjectProperties;
+  row: number;
+  type: ObjectType;
+  width: number;
+  visible: boolean;
 }
 
-export interface IBaseObjectProps {
-  children?: any;
+export type BaseObject = {
   // TODO: Do I need this?
   gid: number;
   id: number;
@@ -25,17 +35,22 @@ export interface IBaseObjectProps {
   y: number;
 }
 
+type ObjectProperties = {
+  contentId: ContentId;
+  prevStageId: StageId;
+  stageId: StageId;
+}
+
 const BaseObjectComponent: React.SFC<IBaseObjectProps> =
-  ({ children, height, id, type, visible, width, x, y }: IBaseObjectProps): JSX.Element => {
+  ({ children, height, id, type, visible, width, column, row }: IBaseObjectProps): JSX.Element => {
     return (
       <div
         className={ `${ type } ${ type }--${ id }` }
         style={
           {
             height: `${ height }px`,
-            left: `${ x }px`,
-            // TODO: This can't be right...
-            top: `${ y - height }px`,
+            left: `${ column * width }px`,
+            top: `${ row * height }px`,
             width: `${ width }px`,
             visibility: visible ? 'visible' : 'hidden',
           }

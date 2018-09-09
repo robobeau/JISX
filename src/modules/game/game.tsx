@@ -1,25 +1,31 @@
 import * as React from 'react';
 import update from 'immutability-helper';
 import { Stage, StageId } from '../stage/stage';
-import { ContentId } from '../explorableExplanation/explorableExplanation';
 
-export enum Key {
+export const GameContext = React.createContext<IGameState>(null);
+
+const FPS = 60;
+
+export enum Keycode {
   Down = 40,
   Left = 37,
   Right = 39,
   Up = 38,
 }
 
-type Keycodes = { [key: number]: boolean };
-
-export const GameContext = React.createContext<IGameState>(null);
-
 export interface IGameProps {}
 
 export interface IGameState {
-  contentId: ContentId;
   keycodes: Keycodes;
   stageId: StageId;
+  ticks: number;
+}
+
+export type Keycodes = { [key: number]: boolean };
+
+export type Position = {
+  column: number;
+  row: number;
 }
 
 export class Game<P extends IGameProps, S extends IGameState> extends React.Component<P, S> {
@@ -39,9 +45,9 @@ export class Game<P extends IGameProps, S extends IGameState> extends React.Comp
      * https://github.com/DefinitelyTyped/DefinitelyTyped/issues/14250#issuecomment-275253262
      */
     (this.state as S as Readonly<IGameState>) = {
-      contentId: 'c000',
-      stageId: 'a000',
       keycodes: {},
+      stageId: StageId.A000,
+      ticks: 0,
     };
 
     this.initGame();
@@ -71,44 +77,38 @@ export class Game<P extends IGameProps, S extends IGameState> extends React.Comp
     this.initGameLoop();
   }
 
+  protected loadStage(event: CustomEvent): void {
+    const { stageId } = event.detail;
+
+    this.setState(() => ({ stageId }));
+  }
+
   private initGameLoop(): void {
-    if (this.gameLoopInterval) {
-      clearInterval(this.gameLoopInterval);
-    }
+    clearInterval(this.gameLoopInterval);
 
     this.gameLoopInterval = setInterval(
       () => {
-        // Do stuff...?
+        this.setState(() => ({ ticks: this.state.ticks + 1 }));
       },
-      1000 / 60
+      1000 / FPS
     );
   }
 
   // TODO: Debounce this...?
   private keydown(event: KeyboardEvent): void {
-    const newState = {
-      keycodes: update(this.state.keycodes, { [event.keyCode]: { $set: true } })
-    };
-
-    this.setState(() => newState);
+    this.setState(() => (
+      {
+        keycodes: update(this.state.keycodes, { [event.keyCode]: { $set: true } })
+      }
+    ));
   }
 
   // TODO: Debounce this...?
   private keyup(event: KeyboardEvent): void {
-    const newState = {
-      keycodes: update(this.state.keycodes, { [event.keyCode]: { $set: false } })
-    };
-
-    this.setState(() => newState);
-  }
-
-  private loadStage(event: CustomEvent): void {
-    const { contentId, stageId } = event.detail;
-    const newState = {
-      contentId,
-      stageId,
-    };
-
-    this.setState(() => newState);
+    this.setState(() => (
+      {
+        keycodes: update(this.state.keycodes, { [event.keyCode]: { $set: false } })
+      }
+    ));
   }
 }

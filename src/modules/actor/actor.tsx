@@ -1,17 +1,14 @@
 import * as React from 'react';
 import { BaseObjectComponent, IBaseObjectProps } from '../baseObject/baseObject';
-import { IGameState, Key } from '../game/game';
+import { IGameState, Keycode, Keycodes, Position } from '../game/game';
 import { CollisionMap, PortalMap } from '../stage/stage';
+
+const ACTOR_MOVEMENT_TICKS = 12;
 
 enum ActorState {
   Idle = 'Idle',
   Interacting = 'Interacting',
   Moving = 'Moving',
-}
-
-type Position = {
-  x: number;
-  y: number;
 }
 
 interface IActorProps extends IBaseObjectProps {
@@ -22,104 +19,109 @@ interface IActorProps extends IBaseObjectProps {
 
 interface IActorState {
   actorState: ActorState;
+  movementTicks: number;
   position: Position;
+  ticks: number;
+}
+
+function getFuturePosition(keycodes: Keycodes, { column, row }: Position): Position {
+  if (keycodes[Keycode.Down]) {
+    row += 1;
+  }
+
+  if (keycodes[Keycode.Left]) {
+    column -= 1;
+  }
+
+  if (keycodes[Keycode.Right]) {
+    column += 1;
+  }
+
+  if (keycodes[Keycode.Up]) {
+    row -= 1;
+  }
+
+  return { column, row };
 }
 
 export class Actor extends React.Component<IActorProps, IActorState> {
   public props: IActorProps;
   public state: IActorState;
 
-  private actorStateTimeout: number;
-
   constructor(props: IActorProps) {
     super(props);
 
-    const { x, y } = props;
+    const { column, row } = props;
 
     this.state = {
       actorState: ActorState.Idle,
-      position: { x, y },
+      movementTicks: 0,
+      position: { column, row },
+      ticks: 0,
     };
   }
 
-  public componentDidUpdate(prevProps: IActorProps, prevState: IActorState): void {
-    if (this.state.actorState === ActorState.Moving && !this.actorStateTimeout) {
-      this.actorStateTimeout = window.setTimeout(
-        () => {
-          const newState = { actorState: ActorState.Idle };
+  public static getDerivedStateFromProps(nextProps: IActorProps, prevState: IActorState): IActorState {
+    const { collisionMap, gameState: { keycodes, ticks }, portalMap } = nextProps;
+    let newState = { ...prevState };
 
-          this.actorStateTimeout = null;
+    newState.actorState = ActorState.Idle;
 
-          this.setState(() => newState);
-        },
-        150
-      );
-    }
-  }
-
-  public static getDerivedStateFromProps(props: IActorProps, state: IActorState): IActorState {
-    const { collisionMap, gameState, portalMap } = props;
-    let { x, y } = state.position;
-    let newState = { ...state };
-
-    // TODO: Set the player's direction.
-    if (gameState.keycodes[Key.Down]) {
-      y += 32;
+    if (ticks !== prevState.ticks) {
+      newState.movementTicks += 1;
     }
 
-    if (gameState.keycodes[Key.Left]) {
-      x -= 32;
-    }
+    const canMove = newState.movementTicks >= ACTOR_MOVEMENT_TICKS;
 
-    if (gameState.keycodes[Key.Right]) {
-      x += 32;
-    }
-
-    if (gameState.keycodes[Key.Up]) {
-      y -= 32;
-    }
-
-    // if (gameState.keycodes[Key.Enter]) {
+    // if (keycodes[Key.Enter]) {
     // }
 
-    const positionWillChange = x !== state.position.x || y !== state.position.y;
+    if (canMove) {
+      const futurePosition = getFuturePosition(keycodes, prevState.position);
+      const positionWillChange = (
+        futurePosition.column !== prevState.position.column
+        || futurePosition.row !== prevState.position.row
+      );
 
-    if (positionWillChange) {
-      // TODO: This "- 1" can't be right...
-      const positionKey = `${ (y / 32) - 1 }-${ x / 32 }`;
+      if (positionWillChange) {
+        const positionKey = `${ futurePosition.row }-${ futurePosition.column }`;
 
-      if (newState.actorState !== ActorState.Moving && !collisionMap[positionKey]) {
-        newState = {
-          actorState: ActorState.Moving,
-          position: { x, y },
+        if (!collisionMap[positionKey]) {
+          newState.actorState = ActorState.Moving;
+          newState.position = futurePosition;
+          newState.movementTicks = 0;
+        }
+
+        if (portalMap[positionKey]) {
+          const { contentId, stageId } = portalMap[positionKey];
+          const detail = { contentId, stageId };
+
+          document.dispatchEvent(new CustomEvent('loadStage', { detail }));
         }
       }
-
-      if (portalMap[positionKey]) {
-        const { contentId, stageId } = portalMap[positionKey];
-        const detail = { contentId, stageId };
-
-        document.dispatchEvent(new CustomEvent('loadStage', { detail }));
-      }
-
-      return newState;
     }
+
+    newState.ticks += 1;
+
+    return newState;
   }
 
   public render(): JSX.Element {
     const { gid, id, height, name, properties, type, width, visible } = this.props;
+    const { column, row } = this.state.position;
 
     return (
       <BaseObjectComponent
-        gid = { gid }
-        id = { id }
-        height = { height }
-        name = { name }
-        { ...this.state.position }
-        properties = { properties }
-        type = { type }
-        width = { width }
-        visible = { visible }
+        column={ column }
+        gid={ gid }
+        id={ id }
+        height={ height }
+        name={ name }
+        properties={ properties }
+        row={ row }
+        type={ type }
+        width={ width }
+        visible={ visible }
       >
       </BaseObjectComponent>
     );

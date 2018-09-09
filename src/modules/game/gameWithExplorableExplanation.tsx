@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { ContentId, ExplorableExplanation } from '../explorableExplanation/explorableExplanation';
 import { Game, GameContext, IGameProps, IGameState } from '../game/game';
-import { Stage } from '../stage/stage';
+import { Stage, StageId } from '../stage/stage';
 
 interface IGameWithExplorableExplanationProps extends IGameProps {}
 
@@ -40,9 +40,18 @@ export class GameWithExplorableExplanation extends Game<IGameWithExplorableExpla
     super.initGame();
 
     this.state = {
-      stageId: 'a000',
-      contentId: 'c000',
+      contentId: ContentId.c000,
       keycodes: {},
+      stageId: StageId.A000,
+      ticks: 0,
     }
+  }
+
+  protected loadStage(event: CustomEvent): void {
+    super.loadStage(event);
+
+    const { contentId } = event.detail;
+
+    this.setState(() => ({ contentId }));
   }
 }
